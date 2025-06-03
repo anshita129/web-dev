@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Weather Report</title>
+  <link rel="stylesheet" href="./styles/style.css"/>
+</head>
+<body>
+  <h1>I will provide you with the weather report.</h1>
+  <form class="form-container" action="/weather" method="POST">
+    <div class="row">
+      <div class="column">
+        <label for="latitude">Latitude:</label>
+        <input type="text" id="latitude" name="latitude" required>
+      </div>
+      <div class="column">
+        <label for="longitude">Longitude:</label>
+        <input type="text" id="longitude" name="longitude" required>
+      </div>
+    </div>
+    <button type="submit">Submit</button>
+  </form>
+
+  <div>
+    <% if (locals.results) { %>
+      <div class="weather-card">
+        <div class="weather-main">
+          <img
+            class="weather-icon"
+            src="https://openweathermap.org/img/wn/<%= results.weather[0].icon %>@2x.png"
+            alt="weather icon"
+          />
+          <span class="weather-temp"><%= Math.round(results.main.temp - 273.15) %>°C</span>
+          <img
+            class="weather-icon"
+            src="https://openweathermap.org/img/wn/<%= results.weather[0].icon %>@2x.png"
+            alt="weather icon"
+          />
+        </div>
+        <div class="weather-desc"><%= results.weather[0].main %></div>
+        <div class="weather-info">
+          <div>Humidity: <span><%= results.main.humidity %></span>%</div>
+          <div>Wind speed: <span><%= Math.round(results.wind.speed * 3.6) %></span>km/h</div>
+        </div>
+      </div>
+    <% } %>
+    
+  </div>
+</body>
+</html>
